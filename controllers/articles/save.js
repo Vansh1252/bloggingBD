@@ -50,7 +50,6 @@ const createblog = async (req, res) => {
                                 published: action === 'publish',
                                 publishDate: action === 'publish' ? Date.now() : null,
                             });
-
                             await newarticle.save();
                             return responseManager.onsuccess(res, newarticle, "Blog created successfully.");
                         } else {
@@ -69,7 +68,6 @@ const createblog = async (req, res) => {
             return responseManager.badrequest(res, "userId is Invaild...!")
         }
     } catch (error) {
-        console.log("error:",error);
         return responseManager.servererror(res, constants.RESPONSE_MESSAGES.SERVER_ERROR);
     }
 }

@@ -8,7 +8,6 @@ const articleschema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim: true
     },
     content: {
         type: String,
@@ -18,13 +17,18 @@ const articleschema = new mongoose.Schema({
         type: [String],
         default: []
     },
+    likes: {
+        type: Number,
+        default: 0
+    },
     comment: {
         type: Number,
         default: 0
     },
-    likes: {
-        type: Number,
-        default: 0
+    status: {
+        type: String,
+        enum: ['draft', 'published'],
+        default: 'draft'
     },
     published: {
         type: Boolean,

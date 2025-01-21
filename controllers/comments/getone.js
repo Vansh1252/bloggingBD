@@ -3,13 +3,12 @@ const constants = require("../../utilities/constants");
 const commentmodel = require('../../models/comments.model');
 const mongoose = require('mongoose');
 
-
 const getone = async (req, res) => {
     const { userId } = req.user;
     const { articleId } = req.body;
     try {
         if (mongoose.Types.ObjectId.isValid(userId)) {
-            if (mongoose.Types.ObjectId.isValid(articleId)) {
+            if (articleId && mongoose.Types.ObjectId.isValid(articleId)) {
                 const comment = await commentmodel.find(articleId);
                 if (comment !== null) {
                     return responseManager.onsuccess(res, comment, "comments...!");

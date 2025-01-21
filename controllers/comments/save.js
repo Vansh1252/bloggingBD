@@ -1,6 +1,7 @@
 const responseManager = require("../../utilities/responseManager");
 const constants = require("../../utilities/constants");
 const commentmodel = require('../../models/comments.model');
+const articlesmodel = require('../../models/articles.model');
 const mongoose = require('mongoose');
 
 const commentsave = async (req, res) => {
@@ -18,12 +19,15 @@ const commentsave = async (req, res) => {
                             return responseManager.badrequest(res, "comment not found...!");
                         }
                     } else {
+                        const commentcount = await articlesmodel.findById(articleId);
                         const comment = await commentmodel({
                             articleId,
                             userId: userId,
                             content,
                         })
+                        commentcount.comment += 1;
                         await comment.save();
+                        await commentcount.save();
                     } return responseManager.onsuccess(res, "comment add successfully...!");
                 } else {
                     return responseManager.badrequest(res, "content should be in an string...!");

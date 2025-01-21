@@ -21,7 +21,8 @@ const getonewithoutpaginaction = async (req, res) => {
             ];
         }
         const blogs = await articlesmodel.find(query)
-            .select("username title content tags ");
+            .select("username title content tags ")
+            .sort({ createdAt: -1 });
         return responseManager.onsuccess(res, blogs, "blog fetched...!");
     } catch (error) {
         return responseManager.servererror(res, constants.RESPONSE_MESSAGES.SERVER_ERROR);

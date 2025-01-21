@@ -9,13 +9,13 @@ const deleted = async (req, res) => {
     const { userId } = req.user
     try {
         if (mongoose.Types.ObjectId.isValid(userId)) {
-            if (mongoose.Types.ObjectId.isValid(articleId)) {
+            if (articleId && mongoose.Types.ObjectId.isValid(articleId)) {
                 const article = await articlesmodel.findById(articleId);
-                if (article !== undefined) {
-                    const comment = await commentmodel.findById(articleId);
-                    if (comment !== null) {
-                        comment.deleted = comment.deleted === true ? false : true;
-                    }
+                if (article !== null) {
+                    await commentmodel.updateMany(
+                        { articleId },
+                        { $set: { deleted: article.deleted } }
+                    );
                     article.deleted = article.deleted === true ? false : true;
                     await article.save()
                     return responseManager.onsuccess(res, "article is  deleted...!");
