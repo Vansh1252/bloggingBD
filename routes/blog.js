@@ -6,7 +6,7 @@ const edit = require('../controllers/articles/edit');
 const deleted = require('../controllers/articles/delete');
 const helpertoken = require('../utilities/tokenauthentication');
 
-router.post('/save', helpertoken, save);
+router.post('/', helpertoken, save);
 router.get('/', helpertoken, getone.getonewithoutpaginaction);
 router.post('/active', helpertoken, getone.getonewithpaginaction);
 router.post('/delete', helpertoken, deleted);

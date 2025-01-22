@@ -7,6 +7,7 @@ const connectDB = require('./utilities/connection.js');
 var userrouter = require('./routes/user.js');
 var commentrouter = require('./routes/comment.js');
 var articlesrouter = require('./routes/blog.js')
+var likesrouter =require('./routes/likes.js');
 const dotenv = require('dotenv');
 
 var app = express();
@@ -32,6 +33,7 @@ connectDB(DATABASE_URL);
 app.use('/articles', articlesrouter);
 app.use('/comments', commentrouter);
 app.use('/users', userrouter);
+app.use('/likes',likesrouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -5,7 +5,7 @@ const getone = require('../controllers/comments/getone');
 const deleted = require('../controllers/users/delete');
 const helpertoken = require('../utilities/tokenauthentication');
 
-router.post('/save', helpertoken, save);
+router.post('/', helpertoken, save);
 router.get('/', helpertoken, getone);
 router.post('/delete', helpertoken, deleted);
 
