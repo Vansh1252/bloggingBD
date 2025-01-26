@@ -6,10 +6,11 @@ const mongoose = require('mongoose');
 const getone = async (req, res) => {
     const { userId } = req.user;
     const { articleId } = req.body;
+    console.log(req.body);
     try {
         if (mongoose.Types.ObjectId.isValid(userId)) {
             if (articleId && mongoose.Types.ObjectId.isValid(articleId)) {
-                const comment = await commentmodel.find(articleId);
+                const comment = await commentmodel.find({ articleId }).select('-deleted -createdAt -updatedAt -__v -userId');
                 if (comment !== null) {
                     return responseManager.onsuccess(res, comment, "comments...!");
                 } else {

@@ -21,7 +21,7 @@ const getonewithoutpaginaction = async (req, res) => {
             ];
         }
         const blogs = await articlesmodel.find(query)
-            .select("username title content tags ")
+            .select("username title content tags likes comment ")
             .sort({ createdAt: -1 });
         return responseManager.onsuccess(res, blogs, "blog fetched...!");
     } catch (error) {
@@ -47,7 +47,7 @@ const getonewithpaginaction = async (req, res) => {
         }
         const totalBlogs = await articlesmodel.countDocuments(query);
         const blogs = await articlesmodel.find(query)
-            .select("username title content tags")
+            .select("username title content tags likes comment ")
             .sort({ createdAt: -1 })
             .skip((currentPage - 1) * itemsPerPage)
             .limit(itemsPerPage);
